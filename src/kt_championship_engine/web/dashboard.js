@@ -226,9 +226,22 @@ function renderGames(state) {
   document.querySelector("#game-probability-note").textContent = selectedTeam === "all"
     ? "전체 구단 보기에서는 각 경기의 홈팀 승률을 표시합니다. 원정팀 승률은 100%에서 홈팀 승률을 뺀 값입니다."
     : `${TEAM_LABELS[selectedTeam]}의 승리 확률을 표시합니다. 선택 팀이 원정이면 100%에서 홈팀 승률을 뺍니다.`;
-  const countLabel = selectedTeam === "all"
-    ? `전체 ${games.length}경기`
-    : `${TEAM_LABELS[selectedTeam]} 대진 ${visibleGames.length} / 전체 ${games.length}경기`;
+  let countLabel = `전체 ${games.length}경기`;
+  if (selectedTeam !== "all") {
+    const probabilities = visibleGames
+      .map((game) => probabilityForTeam(game, game.combined_probability, selectedTeam))
+      .filter((probability) => probability !== null && probability !== undefined && !Number.isNaN(Number(probability)));
+    const expectedWins = probabilities.reduce((total, probability) => total + Number(probability), 0);
+    let estimate = "확률 정보 없음";
+    if (!visibleGames.length) {
+      estimate = "잔여 경기 없음";
+    } else if (probabilities.length === visibleGames.length) {
+      estimate = `${visibleGames.length}경기 중 예상 ${expectedWins.toFixed(1)}승`;
+    } else if (probabilities.length) {
+      estimate = `예상 ${expectedWins.toFixed(1)}승 · 확률 ${probabilities.length}/${visibleGames.length}경기 기준`;
+    }
+    countLabel = `${TEAM_LABELS[selectedTeam]} · 잔여 ${estimate} · 전체 ${games.length}경기`;
+  }
   document.querySelector("#remaining-count").textContent = countLabel;
   if (!visibleGames.length) {
     const row = node("tr");
