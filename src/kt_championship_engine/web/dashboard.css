@@ -178,6 +178,10 @@ h2 {
   transition: background-color 120ms ease;
 }
 
+.refresh-button[hidden] {
+  display: none;
+}
+
 .refresh-button:hover:not(:disabled) {
   background: var(--color-hover-veil);
 }
@@ -198,7 +202,6 @@ h2 {
 }
 
 .refresh-hint,
-.refresh-workflow-link,
 .section-note,
 .footnote,
 .live-status {
@@ -210,13 +213,6 @@ h2 {
 .refresh-hint {
   max-width: var(--layout-refresh-hint-width);
   text-align: right;
-}
-
-.refresh-workflow-link {
-  max-width: var(--layout-refresh-hint-width);
-  color: var(--color-graphite-ink);
-  text-align: right;
-  text-decoration: underline;
 }
 
 .live-status {
@@ -650,8 +646,7 @@ tbody tr:last-child td {
     justify-items: start;
   }
 
-  .refresh-hint,
-  .refresh-workflow-link {
+  .refresh-hint {
     max-width: var(--layout-refresh-hint-mobile-width);
     text-align: left;
   }

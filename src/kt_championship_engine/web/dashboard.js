@@ -20,14 +20,10 @@ let dashboardState;
 const refreshButton = document.querySelector("#refresh-button");
 const refreshLabel = document.querySelector("#refresh-label");
 const refreshHint = document.querySelector(".refresh-hint");
-const refreshWorkflowLink = document.querySelector("#refresh-workflow-link");
 const liveStatus = document.querySelector("#live-status");
-const idleRefreshLabel = isPublishedSite ? "게시 결과 확인" : "데이터 새로고침";
 
-if (isPublishedSite) {
-  refreshLabel.textContent = idleRefreshLabel;
-  refreshHint.textContent = "게시된 결과만 다시 불러옵니다.";
-  refreshWorkflowLink.hidden = false;
+if (!isPublishedSite) {
+  refreshButton.hidden = false;
 }
 
 function node(tag, className, content) {
@@ -84,6 +80,18 @@ function dateTime(value) {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
+  }).format(date);
+}
+
+function dataAsOf(summary) {
+  const date = new Date(summary.data_as_of);
+  if (Number.isNaN(date.getTime())) return summary.data_as_of || "확인 불가";
+  if (summary.data_as_of_precision !== "date") return dateTime(summary.data_as_of);
+  return new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "UTC",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
   }).format(date);
 }
 
@@ -306,9 +314,10 @@ function starterLine(starter, side) {
 function renderData(state) {
   const { summary, snapshot_manifest: manifest } = state;
   const grid = document.querySelector("#data-grid");
+  const asOfLabel = summary.data_as_of_precision === "date" ? "데이터 기준일" : "데이터 기준시각";
   grid.replaceChildren(
     metricCard("Jev 호출 성공 경기", `${summary.jev_successful_game_count}경기`, `실패 ${summary.jev_failed_call_count}경기 · Base-only ${summary.base_only_game_count}경기`),
-    metricCard("데이터 기준시각", dateTime(summary.data_as_of), summary.data_source_type === "official" ? "공식 KBO 기준" : "기준 출처 확인 필요"),
+    metricCard(asOfLabel, dataAsOf(summary), summary.data_source_type === "official" ? "공식 KBO 기준" : "기준 출처 확인 필요"),
     metricCard("데이터 수집시각", dateTime(summary.data_retrieved_at), `순연 경기 추정 일정 ${summary.estimated_makeup_date_count}건`),
   );
   const method = summary.estimated_schedule_method ? "정규시즌 종료 후 하루 한 경기, KT·삼성 맞대결 우선 배치" : "추정 일정 없음";
@@ -337,38 +346,36 @@ async function loadSummary() {
   const payload = await response.json();
   if (!response.ok) throw new Error(payload.error || "최신 결과를 불러오지 못했습니다.");
   render(payload);
-  liveStatus.textContent = `현재 산출물 · 수집 ${dateTime(payload.summary.data_retrieved_at)}`;
+  if (isPublishedSite) {
+    refreshHint.textContent = "매일 오전 2시 자동 재계산";
+    liveStatus.textContent = `데이터 기준 ${dataAsOf(payload.summary)} · 수집 ${dateTime(payload.summary.data_retrieved_at)}`;
+  } else {
+    liveStatus.textContent = `현재 산출물 · 수집 ${dateTime(payload.summary.data_retrieved_at)}`;
+  }
   return payload;
 }
 
 async function refresh() {
   refreshButton.disabled = true;
   refreshButton.setAttribute("aria-busy", "true");
-  refreshLabel.textContent = isPublishedSite ? "게시 결과 확인 중" : "공식 결과 수집 및 재계산 중";
-  liveStatus.textContent = isPublishedSite
-    ? "GitHub Pages에 게시된 최신 결과를 불러오고 있습니다."
-    : "KBO 공식 자료를 수집하고 1,000,000회 시뮬레이션을 실행하고 있습니다.";
+  refreshLabel.textContent = "공식 결과 수집 및 재계산 중";
+  liveStatus.textContent = "KBO 공식 자료를 수집하고 1,000,000회 시뮬레이션을 실행하고 있습니다.";
   try {
-    if (isPublishedSite) {
-      const payload = await loadSummary();
-      liveStatus.textContent = `게시 결과 확인 완료 · 데이터 수집 ${dateTime(payload.summary.data_retrieved_at)} · ${modeLabel(payload.summary)}`;
-    } else {
-      const response = await fetch("/api/refresh", { method: "POST", cache: "no-store" });
-      const payload = await response.json();
-      if (!response.ok) throw new Error(payload.error || "갱신에 실패했습니다.");
-      render(payload);
-      liveStatus.textContent = `갱신 완료 · 데이터 수집 ${dateTime(payload.summary.data_retrieved_at)} · ${modeLabel(payload.summary)}`;
-    }
+    const response = await fetch("/api/refresh", { method: "POST", cache: "no-store" });
+    const payload = await response.json();
+    if (!response.ok) throw new Error(payload.error || "갱신에 실패했습니다.");
+    render(payload);
+    liveStatus.textContent = `갱신 완료 · 데이터 수집 ${dateTime(payload.summary.data_retrieved_at)} · ${modeLabel(payload.summary)}`;
   } catch (error) {
     liveStatus.textContent = `새로고침 실패 · ${error.message}`;
   } finally {
     refreshButton.disabled = false;
     refreshButton.removeAttribute("aria-busy");
-    refreshLabel.textContent = idleRefreshLabel;
+    refreshLabel.textContent = "데이터 새로고침";
   }
 }
 
-refreshButton.addEventListener("click", refresh);
+if (!isPublishedSite) refreshButton.addEventListener("click", refresh);
 teamFilter.addEventListener("change", () => {
   if (dashboardState) renderGames(dashboardState);
 });

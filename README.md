@@ -41,7 +41,7 @@ uv run python -m kt_championship_engine serve --host 127.0.0.1 --port 8765
 
 ### GitHub Pages 배포
 
-저장소의 GitHub Pages 사이트는 Actions가 Python 엔진을 실행해 정적 데이터와 대시보드를 배포합니다. 게시 페이지의 **데이터 새로고침**은 마지막으로 배포된 JSON을 다시 읽습니다. Actions secret이 있으면 main 브랜치 변경, 매일 한국시간 오전 2시, 수동 `workflow_dispatch`에서 새 공식 결과를 수집하고 Jev 예측과 시뮬레이션을 다시 실행합니다. Secret이 없는 main 브랜치 변경은 마지막 Jev 성공 결과인 `data/pages_seed.json`을 게시합니다.
+저장소의 GitHub Pages 사이트는 Actions가 Python 엔진을 실행해 정적 데이터와 대시보드를 배포합니다. 게시 페이지는 방문 시 마지막 배포 결과를 불러오며, 매일 한국시간 오전 2시 자동 재계산 일정과 데이터 기준 시각·수집 시각을 표시합니다. Actions secret이 있으면 main 브랜치 변경, 매일 한국시간 오전 2시, 수동 `workflow_dispatch`에서 새 공식 결과를 수집하고 Jev 예측과 시뮬레이션을 다시 실행합니다. Secret이 없는 main 브랜치 변경은 마지막 Jev 성공 결과인 `data/pages_seed.json`을 게시합니다.
 
 Jev가 연결되지 않은 결과를 새로 게시하지 않도록 수동·예약 실행에는 저장소 Actions secret `TYPESAFE_API_KEY`가 필요합니다. GitHub 저장소의 **Settings → Secrets and variables → Actions**에서 이 secret을 직접 설정하세요. `.env`와 키 값은 저장소에 포함하지 않습니다. 키 누락, 사전 연결 점검 실패, Jev 성공 경기 0건이면 배포 작업이 실패하고 기존 Pages 데이터가 유지됩니다. 키가 설정되지 않은 첫 배포는 마지막 로컬 실행에서 Jev가 성공한 `data/pages_seed.json`을 사용합니다.
 

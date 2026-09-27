@@ -217,10 +217,11 @@ The season dashboard reuses the graphite, paper, and hairline tokens above. It d
 
 ### Refresh Interaction and Accessibility
 
-- The refresh control has idle, loading, success, and failure states. During a request, disable it, expose `aria-busy`, and announce progress through a polite live region. Restore the idle label after either outcome.
-- Success text names the completed refresh and current Jev mode. Failure text preserves the visible prior result and gives a concise error; the execution log contains command details.
+- The local dashboard has an explicit refresh control with idle, loading, success, and failure states. During a request, disable it, expose `aria-busy`, and announce progress through a polite live region. Restore the idle label after either outcome.
+- The published dashboard has no manual refresh or recalculation control. It loads the latest deployed result on page load, states the daily 02:00 KST recalculation schedule, and shows the data cutoff and retrieval time.
+- Local refresh success names the completed run and current Jev mode. Failure text preserves the visible prior result and gives a concise error; the execution log contains command details.
 - Use grayscale weight, borders, and text for state changes. Keep keyboard focus visible, use semantic headings and table scopes, label progress indicators, and honor `prefers-reduced-motion`.
-- Refresh is an explicit local action after games finish. The server does not schedule background refreshes.
+- Local refresh is an explicit action after games finish. GitHub Actions recalculates and deploys the published result on its daily schedule.
 
 ## Quick Start
 

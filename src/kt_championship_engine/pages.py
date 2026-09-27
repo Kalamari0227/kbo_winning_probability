@@ -21,7 +21,7 @@ def build_pages(project_root: Path, output_dir: Path) -> str:
     if dynamic_state_marker not in html:
         raise ValueError("dashboard data URL marker is missing from web/index.html")
     html = html.replace(dynamic_state_marker, 'content="dashboard-data.json" data-mode="published"')
-    html = html.replace("경기 후 공식 결과로 재계산", "최신 게시 결과를 다시 불러옵니다")
+    html = html.replace("경기 후 공식 결과로 재계산", "매일 오전 2시 자동 재계산")
     (output_dir / "index.html").write_text(html, encoding="utf-8")
 
     shutil.copy2(web_dir / "dashboard.css", assets_dir / "dashboard.css")
