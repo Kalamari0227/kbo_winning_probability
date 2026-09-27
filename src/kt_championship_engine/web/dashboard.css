@@ -198,6 +198,7 @@ h2 {
 }
 
 .refresh-hint,
+.refresh-workflow-link,
 .section-note,
 .footnote,
 .live-status {
@@ -209,6 +210,13 @@ h2 {
 .refresh-hint {
   max-width: var(--layout-refresh-hint-width);
   text-align: right;
+}
+
+.refresh-workflow-link {
+  max-width: var(--layout-refresh-hint-width);
+  color: var(--color-graphite-ink);
+  text-align: right;
+  text-decoration: underline;
 }
 
 .live-status {
@@ -642,7 +650,8 @@ tbody tr:last-child td {
     justify-items: start;
   }
 
-  .refresh-hint {
+  .refresh-hint,
+  .refresh-workflow-link {
     max-width: var(--layout-refresh-hint-mobile-width);
     text-align: left;
   }

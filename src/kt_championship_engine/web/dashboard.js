@@ -19,7 +19,16 @@ let dashboardState;
 
 const refreshButton = document.querySelector("#refresh-button");
 const refreshLabel = document.querySelector("#refresh-label");
+const refreshHint = document.querySelector(".refresh-hint");
+const refreshWorkflowLink = document.querySelector("#refresh-workflow-link");
 const liveStatus = document.querySelector("#live-status");
+const idleRefreshLabel = isPublishedSite ? "게시 결과 확인" : "데이터 새로고침";
+
+if (isPublishedSite) {
+  refreshLabel.textContent = idleRefreshLabel;
+  refreshHint.textContent = "게시된 결과만 다시 불러옵니다.";
+  refreshWorkflowLink.hidden = false;
+}
 
 function node(tag, className, content) {
   const element = document.createElement(tag);
@@ -329,6 +338,7 @@ async function loadSummary() {
   if (!response.ok) throw new Error(payload.error || "최신 결과를 불러오지 못했습니다.");
   render(payload);
   liveStatus.textContent = `현재 산출물 · 수집 ${dateTime(payload.summary.data_retrieved_at)}`;
+  return payload;
 }
 
 async function refresh() {
@@ -340,7 +350,8 @@ async function refresh() {
     : "KBO 공식 자료를 수집하고 1,000,000회 시뮬레이션을 실행하고 있습니다.";
   try {
     if (isPublishedSite) {
-      await loadSummary();
+      const payload = await loadSummary();
+      liveStatus.textContent = `게시 결과 확인 완료 · 데이터 수집 ${dateTime(payload.summary.data_retrieved_at)} · ${modeLabel(payload.summary)}`;
     } else {
       const response = await fetch("/api/refresh", { method: "POST", cache: "no-store" });
       const payload = await response.json();
@@ -353,7 +364,7 @@ async function refresh() {
   } finally {
     refreshButton.disabled = false;
     refreshButton.removeAttribute("aria-busy");
-    refreshLabel.textContent = "데이터 새로고침";
+    refreshLabel.textContent = idleRefreshLabel;
   }
 }
 
