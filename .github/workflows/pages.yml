@@ -64,7 +64,7 @@ jobs:
           exit 1
 
       - name: Collect official KBO data and run Jev forecasts
-        if: steps.jev-secret.outputs.available == 'true'
+        if: github.event_name != 'push' && steps.jev-secret.outputs.available == 'true'
         run: |
           mkdir -p artifacts/latest
           uv run python -m kt_championship_engine collect --output data/snapshots/latest.json
@@ -75,7 +75,7 @@ jobs:
             --output artifacts/latest 2>&1 | tee artifacts/latest/execution.log
 
       - name: Verify Jev was used before publishing refreshed data
-        if: steps.jev-secret.outputs.available == 'true'
+        if: github.event_name != 'push' && steps.jev-secret.outputs.available == 'true'
         run: |
           uv run python - <<'PY'
           import json
@@ -92,6 +92,21 @@ jobs:
               f"failed={summary['jev_failed_call_count']} "
               f"base_only={summary['base_only_game_count']}"
           )
+          PY
+
+      - name: Reuse the published calculation on code pushes
+        if: github.event_name == 'push'
+        run: |
+          curl --fail --silent --show-error --location \
+            https://kalamari0227.github.io/kbo_winning_probability/dashboard-data.json \
+            --output data/pages_seed.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          state = json.loads(Path("data/pages_seed.json").read_text(encoding="utf-8"))
+          if not isinstance(state.get("summary"), dict) or not isinstance(state.get("snapshot_manifest"), dict):
+              raise SystemExit("The currently published dashboard data is invalid.")
           PY
 
       - name: Build static dashboard
