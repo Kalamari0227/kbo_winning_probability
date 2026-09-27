@@ -29,6 +29,7 @@ def test_build_pages_publishes_seed_state_with_project_relative_assets(tmp_path:
     dashboard_js = (output_dir / "assets" / "dashboard.js").read_text(encoding="utf-8")
 
     assert 'content="dashboard-data.json" data-mode="published"' in page
+    assert '<link rel="icon" type="image/png" href="assets/teams/KT.png">' in page
     assert 'href="assets/dashboard.css"' in page
     assert "최신 게시 결과를 다시 불러옵니다" in page
     assert published_state == seed
