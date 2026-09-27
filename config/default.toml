@@ -1,0 +1,11 @@
+season = 2026
+simulations = 1_000_000
+seed = 20260920
+base_weight = 0.60
+jev_weight = 0.40
+tiebreak_policy = "single_game"
+allow_stale = false
+jev_timeout_seconds = 10.0
+data_source = "official"
+jev_endpoint = "https://api.typesafe.ai/v1/systemone"
+jev_model = "jev-latest"

@@ -1,0 +1,31 @@
+{
+  "season": 2026,
+  "standings": [
+    {"season": 2026, "team_id": "KT", "team_name": "KT Wiz", "played": 142, "wins": 79, "losses": 61, "ties": 2, "win_pct": 0.564, "rank": 1, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "1111111111111111111111111111111111111111111111111111111111111111"},
+    {"season": 2026, "team_id": "SS", "team_name": "Samsung Lions", "played": 142, "wins": 78, "losses": 62, "ties": 2, "win_pct": 0.557, "rank": 2, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "2222222222222222222222222222222222222222222222222222222222222222"},
+    {"season": 2026, "team_id": "LG", "team_name": "LG Twins", "played": 143, "wins": 74, "losses": 67, "ties": 2, "win_pct": 0.525, "rank": 3, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "3333333333333333333333333333333333333333333333333333333333333333"},
+    {"season": 2026, "team_id": "NC", "team_name": "NC Dinos", "played": 143, "wins": 72, "losses": 69, "ties": 2, "win_pct": 0.511, "rank": 4, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "4444444444444444444444444444444444444444444444444444444444444444"},
+    {"season": 2026, "team_id": "DO", "team_name": "Doosan Bears", "played": 144, "wins": 70, "losses": 72, "ties": 2, "win_pct": 0.493, "rank": 5, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "5555555555555555555555555555555555555555555555555555555555555555"},
+    {"season": 2026, "team_id": "SSG", "team_name": "SSG Landers", "played": 144, "wins": 68, "losses": 74, "ties": 2, "win_pct": 0.479, "rank": 6, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "6666666666666666666666666666666666666666666666666666666666666666"},
+    {"season": 2026, "team_id": "KI", "team_name": "KIA Tigers", "played": 144, "wins": 66, "losses": 76, "ties": 2, "win_pct": 0.465, "rank": 7, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "7777777777777777777777777777777777777777777777777777777777777777"},
+    {"season": 2026, "team_id": "LOT", "team_name": "Lotte Giants", "played": 144, "wins": 64, "losses": 78, "ties": 2, "win_pct": 0.451, "rank": 8, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "8888888888888888888888888888888888888888888888888888888888888888"},
+    {"season": 2026, "team_id": "HAN", "team_name": "Hanwha Eagles", "played": 144, "wins": 62, "losses": 80, "ties": 2, "win_pct": 0.437, "rank": 9, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "9999999999999999999999999999999999999999999999999999999999999999"},
+    {"season": 2026, "team_id": "KIW", "team_name": "Kiwoom Heroes", "played": 144, "wins": 57, "losses": 85, "ties": 2, "win_pct": 0.401, "rank": 10, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"}
+  ],
+  "games": [
+    {"game_id": "20260919-KT-DO-01", "season": 2026, "game_date": "2026-09-19", "status": "final", "away_team": "DO", "home_team": "KT", "away_score": 2, "home_score": 5, "is_official_result": true, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"},
+    {"game_id": "20260921-KT-LG-01", "season": 2026, "game_date": "2026-09-21", "status": "scheduled", "away_team": "KT", "home_team": "LG", "away_score": null, "home_score": null, "is_official_result": false, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"},
+    {"game_id": "20260922-SS-NC-01", "season": 2026, "game_date": "2026-09-22", "status": "scheduled", "away_team": "SS", "home_team": "NC", "away_score": null, "home_score": null, "is_official_result": false, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd"},
+    {"game_id": "TBD-KT-SS-01", "season": 2026, "game_date": null, "status": "postponed", "away_team": "KT", "home_team": "SS", "away_score": null, "home_score": null, "is_official_result": false, "as_of": "2026-09-20T12:00:00Z", "retrieved_at": "2026-09-20T12:00:00Z", "source_type": "official", "source_uri": "https://www.koreabaseball.com/", "source_hash": "eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee"}
+  ],
+  "manifest": {
+    "season": 2026,
+    "as_of": "2026-09-20T12:00:00Z",
+    "retrieved_at": "2026-09-20T12:00:00Z",
+    "source_type": "official",
+    "source_uris": ["https://www.koreabaseball.com/"],
+    "source_hashes": ["ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"],
+    "stale": false,
+    "warnings": []
+  }
+}

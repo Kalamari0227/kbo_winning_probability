@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="dashboard-data-url" content="/api/summary" data-mode="dynamic">
+    <title>KT Championship Engine</title>
+    <link rel="stylesheet" href="assets/tokens.css">
+    <link rel="stylesheet" href="assets/dashboard.css">
+    <script src="assets/dashboard.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="주 메뉴">
+        <a class="brand" href="#top">KT Championship Engine</a>
+        <p class="sidebar-season">2026 KBO 정규시즌</p>
+        <nav class="navigation">
+          <a href="#race" aria-current="page">시즌 전망</a>
+          <a href="#confirmation">1위 확정 예상</a>
+          <a href="#games">잔여 경기</a>
+          <a href="#data">데이터 기준</a>
+        </nav>
+        <div class="sidebar-note">
+          <span class="eyebrow">분석 엔진</span>
+          <p>공식 경기 결과와 잔여 일정을 바탕으로 순위를 계산합니다.</p>
+        </div>
+      </aside>
+
+      <div class="mobile-header">
+        <a class="brand" href="#top">KT Championship Engine</a>
+        <span>2026 KBO</span>
+      </div>
+
+      <main class="main-content" id="top">
+        <div class="content-wrap">
+          <header class="page-header">
+            <div>
+              <p class="eyebrow">정규시즌 우승 레이스</p>
+              <h1>KT Championship Engine</h1>
+              <p class="header-description">KT Wiz · 삼성 라이온즈 · LG 트윈스 최종 순위 전망</p>
+            </div>
+            <div class="refresh-area">
+              <button class="refresh-button" id="refresh-button" type="button">
+                <span class="refresh-symbol" aria-hidden="true">↻</span>
+                <span id="refresh-label">데이터 새로고침</span>
+              </button>
+              <span class="refresh-hint">경기 후 공식 결과로 재계산</span>
+            </div>
+          </header>
+
+          <p class="live-status" id="live-status" role="status" aria-live="polite">최신 산출물을 불러오는 중입니다.</p>
+
+          <section class="section-block" id="race" aria-labelledby="race-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow" id="simulation-count">SIMULATION</p>
+                <h2 id="race-heading">최종 순위 확률</h2>
+              </div>
+              <span class="mode-chip" id="forecast-mode">결과 모드 확인 중</span>
+            </div>
+            <div class="ranking-grid" id="ranking-grid" aria-live="polite"></div>
+          </section>
+
+          <section class="section-block" aria-labelledby="wins-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">EXPECTED WINS</p>
+                <h2 id="wins-heading">예상 최종 승수</h2>
+              </div>
+            </div>
+            <div class="metric-grid" id="wins-grid"></div>
+          </section>
+
+          <section class="section-block" aria-labelledby="magic-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">CLINCH OUTLOOK</p>
+                <h2 id="magic-heading">매직넘버와 확정 전망</h2>
+              </div>
+            </div>
+            <div class="metric-grid three-up" id="magic-grid"></div>
+          </section>
+
+          <section class="section-block" id="confirmation" aria-labelledby="confirmation-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">DATE BY DATE</p>
+                <h2 id="confirmation-heading">날짜별 KT 1위 확정 확률</h2>
+              </div>
+              <p class="section-note" id="confirmation-note"></p>
+            </div>
+            <div class="surface-panel date-panel">
+              <div class="date-highlight" id="date-highlight"></div>
+              <div class="date-list" id="date-list"></div>
+            </div>
+          </section>
+
+          <section class="section-block" id="games" aria-labelledby="games-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">GAME FORECASTS</p>
+                <h2 id="games-heading">잔여 경기 예측</h2>
+              </div>
+            </div>
+            <div class="table-toolbar">
+              <label class="team-filter" for="team-filter">
+                <span>팀별 보기</span>
+                <span class="team-filter-controls">
+                  <select id="team-filter" aria-controls="games-table-body">
+                    <option value="all">전체 구단</option>
+                    <option value="KT">KT Wiz</option>
+                    <option value="SS">삼성 라이온즈</option>
+                    <option value="LG">LG 트윈스</option>
+                    <option value="KI">KIA 타이거즈</option>
+                    <option value="DO">두산 베어스</option>
+                    <option value="NC">NC 다이노스</option>
+                    <option value="LOT">롯데 자이언츠</option>
+                    <option value="SSG">SSG 랜더스</option>
+                    <option value="HAN">한화 이글스</option>
+                    <option value="KIW">키움 히어로즈</option>
+                  </select>
+                  <span class="team-filter-emblem" id="team-filter-emblem" aria-hidden="true" hidden></span>
+                </span>
+              </label>
+              <p class="section-note" id="remaining-count" aria-live="polite"></p>
+            </div>
+            <p class="table-scroll-hint">좌우로 밀어 구장, 선발과 승률 열을 확인하세요.</p>
+            <div class="surface-panel table-scroll">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">날짜</th>
+                    <th scope="col">구장</th>
+                    <th scope="col">대진</th>
+                    <th scope="col">선발 (홈 / 원정)</th>
+                    <th scope="col"><span>Base</span><span class="table-header-detail probability-basis">홈팀 승률</span></th>
+                    <th scope="col"><span>Jev</span><span class="table-header-detail probability-basis">홈팀 승률</span></th>
+                    <th scope="col"><span id="combined-heading">Combined</span><span class="table-header-detail probability-basis">홈팀 승률</span></th>
+                    <th scope="col">Jev 상태</th>
+                  </tr>
+                </thead>
+                <tbody id="games-table-body"></tbody>
+              </table>
+            </div>
+            <p class="footnote" id="game-probability-note">전체 구단 보기에서는 각 경기의 홈팀 승률을 표시합니다. 원정팀 승률은 100%에서 홈팀 승률을 뺀 값입니다.</p>
+          </section>
+
+          <section class="section-block" id="data" aria-labelledby="data-heading">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">DATA & MODEL</p>
+                <h2 id="data-heading">데이터 기준과 호출 상태</h2>
+              </div>
+            </div>
+            <div class="metric-grid three-up" id="data-grid"></div>
+            <p class="footnote" id="data-note"></p>
+          </section>
+
+          <footer class="page-footer">
+            공식 KBO 자료를 우선 사용합니다. 예상 일정과 선수 정보는 공식 확정 자료와 구분해 표시합니다.
+          </footer>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

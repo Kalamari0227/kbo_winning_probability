@@ -1,0 +1,110 @@
+name: Refresh and deploy GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  schedule:
+    - cron: "0 17 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    env:
+      TYPESAFE_API_KEY: ${{ secrets.TYPESAFE_API_KEY }}
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Install project
+        run: uv sync --extra dev --locked
+
+      - name: Test and lint
+        run: |
+          uv run pytest -q
+          uv run ruff check .
+
+      - name: Check Jev credential availability
+        id: jev-secret
+        shell: bash
+        run: |
+          if [[ -n "${TYPESAFE_API_KEY:-}" ]]; then
+            echo "available=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "available=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Require Jev for scheduled or manual refresh
+        if: github.event_name != 'push' && steps.jev-secret.outputs.available != 'true'
+        run: |
+          echo "::error::Set the repository Actions secret TYPESAFE_API_KEY before requesting a Jev refresh. No Base-only deployment was made."
+          exit 1
+
+      - name: Collect official KBO data and run Jev forecasts
+        if: steps.jev-secret.outputs.available == 'true'
+        run: |
+          mkdir -p artifacts/latest
+          uv run python -m kt_championship_engine collect --output data/snapshots/latest.json
+          uv run python -m kt_championship_engine validate --snapshot data/snapshots/latest.json
+          uv run python -m kt_championship_engine run \
+            --snapshot data/snapshots/latest.json \
+            --config config/default.toml \
+            --output artifacts/latest 2>&1 | tee artifacts/latest/execution.log
+
+      - name: Verify Jev was used before publishing refreshed data
+        if: steps.jev-secret.outputs.available == 'true'
+        run: |
+          uv run python - <<'PY'
+          import json
+          from pathlib import Path
+
+          summary = json.loads(Path("artifacts/latest/simulation_summary.json").read_text(encoding="utf-8"))
+          if summary["remaining_game_count"] and summary["jev_preflight_status"] != "ok":
+              raise SystemExit(f"Jev preflight failed: {summary['jev_preflight_display']}")
+          if summary["remaining_game_count"] and summary["jev_successful_game_count"] == 0:
+              raise SystemExit("Jev returned zero successful game forecasts; refusing Base-only publication.")
+          print(
+              "Verified Jev forecasts: "
+              f"success={summary['jev_successful_game_count']} "
+              f"failed={summary['jev_failed_call_count']} "
+              f"base_only={summary['base_only_game_count']}"
+          )
+          PY
+
+      - name: Build static dashboard
+        run: uv run python -m kt_championship_engine build-pages --output _site
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
