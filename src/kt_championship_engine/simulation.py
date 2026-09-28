@@ -378,8 +378,8 @@ def compute_magic_number(standings: list[TeamStanding], remaining: list[Game]) -
                 competitor,
                 competitor_remaining,
                 head_to_head_remaining,
-                kt_wins=wins_needed,
-                kt_remaining=kt_remaining,
+                target_wins=wins_needed,
+                target_remaining=kt_remaining,
             )
             if tie_needed is None and kt_pct >= competitor_pct:
                 tie_needed = wins_needed
@@ -391,8 +391,8 @@ def compute_magic_number(standings: list[TeamStanding], remaining: list[Game]) -
             competitor,
             competitor_remaining,
             head_to_head_remaining,
-            kt_wins=kt_remaining,
-            kt_remaining=kt_remaining,
+            target_wins=kt_remaining,
+            target_remaining=kt_remaining,
         )
 
     limiting_candidates = [team for team, value in strict_requirements.items() if value is None]
@@ -422,6 +422,58 @@ def compute_magic_number(standings: list[TeamStanding], remaining: list[Game]) -
     )
 
 
+def compute_postseason_magic_numbers(
+    standings: list[TeamStanding],
+    remaining: list[Game],
+    postseason_places: int = 5,
+) -> dict[str, int | None]:
+    if postseason_places < 1:
+        raise ValueError("postseason_places must be positive")
+
+    ranked_standings = sorted(standings, key=lambda standing: (standing.rank, standing.team_id))
+    remaining_counts: Counter[str] = Counter()
+    for game in remaining:
+        remaining_counts[game.away_team] += 1
+        remaining_counts[game.home_team] += 1
+
+    magic_numbers: dict[str, int | None] = {}
+    for target in ranked_standings[:postseason_places]:
+        competitors = [standing for standing in ranked_standings if standing.team_id != target.team_id]
+        if len(competitors) < postseason_places:
+            magic_numbers[target.team_id] = 0
+            continue
+
+        target_remaining = remaining_counts.get(target.team_id, 0)
+        competitor_limits = [
+            (
+                competitor,
+                remaining_counts.get(competitor.team_id, 0),
+                sum(1 for game in remaining if game.is_head_to_head(target.team_id, competitor.team_id)),
+            )
+            for competitor in competitors
+        ]
+        wins_needed: int | None = None
+        for target_wins in range(target_remaining + 1):
+            target_pct = _future_win_pct(target, target_wins, target_remaining - target_wins)
+            guaranteed_behind = sum(
+                target_pct
+                > _maximum_competitor_pct(
+                    competitor,
+                    competitor_remaining,
+                    head_to_head_remaining,
+                    target_wins=target_wins,
+                    target_remaining=target_remaining,
+                )
+                for competitor, competitor_remaining, head_to_head_remaining in competitor_limits
+            )
+            if guaranteed_behind >= postseason_places:
+                wins_needed = target_wins
+                break
+        magic_numbers[target.team_id] = wins_needed
+
+    return magic_numbers
+
+
 def date_confirmation_probabilities(
     date_result: DateSimulationResult | SimulationResult,
 ) -> list[DateConfirmation]:
@@ -442,13 +494,13 @@ def _maximum_competitor_pct(
     competitor_remaining: int,
     head_to_head_remaining: int,
     *,
-    kt_wins: int,
-    kt_remaining: int,
+    target_wins: int,
+    target_remaining: int,
 ) -> float:
-    forced_kt_head_to_head_wins = max(0, kt_wins - max(0, kt_remaining - head_to_head_remaining))
-    forced_kt_head_to_head_wins = min(forced_kt_head_to_head_wins, head_to_head_remaining)
-    competitor_additional_wins = competitor_remaining - forced_kt_head_to_head_wins
-    return _future_win_pct(competitor, competitor_additional_wins, forced_kt_head_to_head_wins)
+    forced_target_head_to_head_wins = max(0, target_wins - max(0, target_remaining - head_to_head_remaining))
+    forced_target_head_to_head_wins = min(forced_target_head_to_head_wins, head_to_head_remaining)
+    competitor_additional_wins = competitor_remaining - forced_target_head_to_head_wins
+    return _future_win_pct(competitor, competitor_additional_wins, forced_target_head_to_head_wins)
 
 
 def _remaining_counts_after_date(games: Sequence[Game], game_date: date) -> dict[str, int]:

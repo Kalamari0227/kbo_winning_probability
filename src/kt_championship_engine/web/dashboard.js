@@ -141,15 +141,30 @@ function metricCard(label, value, detail = "", team = null) {
   return card;
 }
 
-function renderWins(summary) {
+function renderWins(state) {
   const grid = document.querySelector("#wins-grid");
+  const summary = state.summary;
+  const standings = [...(state.standings || [])]
+    .sort((left, right) => (left.rank ?? Infinity) - (right.rank ?? Infinity))
+    .slice(0, 5);
   grid.replaceChildren();
-  for (const [team, label, key] of [
-    ["KT", TEAM_LABELS.KT, "kt_expected_final_wins"],
-    ["SS", TEAM_LABELS.SS, "ss_expected_final_wins"],
-    ["LG", TEAM_LABELS.LG, "lg_expected_final_wins"],
-  ]) {
-    grid.append(metricCard(label, Number(summary[key]).toFixed(2), "시뮬레이션 평균", team));
+  for (const standing of standings) {
+    const team = standing.team;
+    const expectedWins = summary.final_win_stats?.[team]?.mean
+      ?? summary[`${team.toLowerCase()}_expected_final_wins`];
+    const expectedWinsLabel = Number.isFinite(Number(expectedWins)) ? Number(expectedWins).toFixed(2) : "—";
+    const magicNumber = state.postseason_magic_numbers?.[team];
+    const magicLabel = state.postseason_magic_numbers === undefined
+      ? "시뮬레이션 평균"
+      : magicNumber === 0
+        ? "포스트시즌 진출 확정"
+        : Number.isInteger(magicNumber)
+          ? `포스트시즌 매직넘버 ${magicNumber}승`
+          : magicNumber === null
+            ? "자체 승리만으로 확정 불가"
+            : "매직넘버 데이터 대기";
+    const rankLabel = Number.isInteger(standing.rank) ? `${standing.rank}위 · ` : "";
+    grid.append(metricCard(TEAM_LABELS[team] || team, expectedWinsLabel, `${rankLabel}${magicLabel}`, team));
   }
 }
 
@@ -332,7 +347,7 @@ function render(state) {
   document.querySelector("#simulation-count").textContent = `SIMULATION · ${Number(summary.simulations).toLocaleString("ko-KR")}회`;
   document.querySelector("#forecast-mode").textContent = modeLabel(summary);
   renderRankings(state);
-  renderWins(summary);
+  renderWins(state);
   renderMagic(summary);
   renderConfirmation(summary);
   renderGames(state);

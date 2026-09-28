@@ -12,7 +12,8 @@ from threading import Lock
 from typing import Any, TypedDict
 from urllib.parse import urlsplit
 
-from .schemas import EvidenceStatus, StartingPitcherEvidence
+from .schemas import EvidenceStatus, Game, StartingPitcherEvidence, TeamStanding
+from .simulation import compute_postseason_magic_numbers
 
 ASSET_FILES = {
     "/": ("index.html", "text/html; charset=utf-8"),
@@ -24,7 +25,18 @@ ASSET_FILES = {
         for team in ("KT", "SS", "LG", "KI", "DO", "NC", "LOT", "SSG", "HAN", "KIW")
     },
 }
-TEAM_NAMES = {"KT": "KT Wiz", "SS": "삼성 라이온즈", "LG": "LG 트윈스"}
+TEAM_NAMES = {
+    "KT": "KT Wiz",
+    "SS": "삼성 라이온즈",
+    "LG": "LG 트윈스",
+    "KI": "KIA 타이거즈",
+    "DO": "두산 베어스",
+    "NC": "NC 다이노스",
+    "LOT": "롯데 자이언츠",
+    "SSG": "SSG 랜더스",
+    "HAN": "한화 이글스",
+    "KIW": "키움 히어로즈",
+}
 
 
 class StartingPitcherSummary(TypedDict):
@@ -45,12 +57,13 @@ def load_dashboard_state(project_root: Path) -> dict[str, Any]:
     with snapshot_path.open("r", encoding="utf-8") as stream:
         snapshot = json.load(stream)
 
+    standing_models = [TeamStanding.model_validate(row) for row in snapshot["standings"]]
+    remaining_models = [Game.model_validate(game) for game in snapshot["games"] if game["status"] != "final"]
     remaining_by_team: Counter[str] = Counter()
     games_by_id = {game["game_id"]: game for game in snapshot["games"]}
-    for game in snapshot["games"]:
-        if game["status"] != "final":
-            remaining_by_team[game["away_team"]] += 1
-            remaining_by_team[game["home_team"]] += 1
+    for game in remaining_models:
+        remaining_by_team[game.away_team] += 1
+        remaining_by_team[game.home_team] += 1
     for row in snapshot["standings"]:
         if row["played"] + remaining_by_team[row["team_id"]] != 144:
             raise ValueError(f"{row['team_id']} game count does not equal 144")
@@ -65,12 +78,14 @@ def load_dashboard_state(project_root: Path) -> dict[str, Any]:
             "wins": row["wins"],
             "losses": row["losses"],
             "ties": row["ties"],
+            "rank": row["rank"],
             "remaining": remaining_by_team[row["team_id"]],
             "source_type": row["source_type"],
         }
         for row in snapshot["standings"]
         if row["team_id"] in TEAM_NAMES
     ]
+    postseason_magic_numbers = compute_postseason_magic_numbers(standing_models, remaining_models)
 
     forecasts_by_game: dict[str, list[dict[str, str]]] = defaultdict(list)
     forecast_path = output_dir / "game_forecasts.csv"
@@ -115,6 +130,7 @@ def load_dashboard_state(project_root: Path) -> dict[str, Any]:
     return {
         "summary": summary,
         "standings": standings,
+        "postseason_magic_numbers": postseason_magic_numbers,
         "remaining_games": remaining_games,
         "snapshot_manifest": snapshot["manifest"],
     }
