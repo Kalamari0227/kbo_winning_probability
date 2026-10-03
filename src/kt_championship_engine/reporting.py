@@ -157,6 +157,7 @@ def _summary(
             "limiting_competitor": magic_number.competitor,
             "combined_magic_number": magic_number.combined_magic_number,
             "combined_tie_number": magic_number.combined_tie_number,
+            "combined_definition": magic_number.combined_definition,
             "kt_current_wins": magic_number.kt_current_wins,
             "competitor_current_losses": magic_number.competitor_current_losses,
             "ss_current_losses": magic_number.ss_current_losses,
@@ -255,14 +256,14 @@ def _markdown_summary(summary: dict[str, object]) -> str:
         magic_line = f"- KT-삼성 결합 매직넘버: {magic['combined_magic_number']}"
         magic_alias = f"- 현재 매직넘버(결합): {magic['combined_magic_number']}"
         magic_detail = (
-            f"- 계산: {magic['season_games'] + 1} - (KT {magic['kt_current_wins']}승 + "
-            f"삼성 {magic['ss_current_losses']}패) = "
-            f"{magic['combined_magic_number']}"
+            "- 계산: 승/(승+패)를 정확한 분수로 비교; 현재 무승부와 잔여 맞대결 연동 반영. "
+            "KT 맞대결 승리는 KT 승+삼성 패로 2개로 집계; 향후 무승부도 최악 조건 검증. "
+            "결합 수치는 삼성 상대 기준이며, 전체 경쟁팀 자력 확정과 별개."
         )
         kt_only_magic_detail = (
             f"- KT 단독 매직넘버(추가 승리): {magic['strict_wins_needed']}승"
         )
-        tie_detail = f"- 동률 도달 기준(결합): {magic['combined_tie_number']}"
+        tie_detail = f"- 삼성 이상 승률 보장 기준(결합) · 동률은 우승 미확정: {magic['combined_tie_number']}"
         kt_additional_detail = f"- KT 단독 추가승수(동률 또는 타이브레이크 도달): {magic['wins_needed_for_tie_or_tiebreak']}승"
     else:
         magic_line = "- 현재 매직넘버: unknown"

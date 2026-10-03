@@ -138,8 +138,8 @@ def test_magic_number_reports_combined_leader_wins_and_competitor_losses(game_fa
 
     result = compute_magic_number(standings, remaining)
 
-    assert getattr(result, "combined_magic_number", None) == 15
-    assert getattr(result, "combined_tie_number", None) == 14
+    assert getattr(result, "combined_magic_number", None) == 11
+    assert getattr(result, "combined_tie_number", None) == 11
     assert getattr(result, "kt_current_wins", None) == 78
     assert getattr(result, "competitor_current_losses", None) == 52
 
@@ -183,3 +183,76 @@ def test_simulation_resolves_first_place_in_batch(mini_snapshot, forecasts, monk
     monkeypatch.setattr(simulation_module, "resolve_first_place", scalar_resolution_should_not_run)
     result = simulate(mini_snapshot, forecasts, simulations=32, seed=7)
     assert result.first_place_counts["KT"] + result.first_place_counts["SS"] <= 32
+
+
+def test_october_first_draw_aware_magic_regression(game_factory):
+    from kt_championship_engine.schemas import TeamStanding
+
+    standings = [
+        TeamStanding(
+            season=2026, team_id=team, team_name=team, played=wins + losses + ties,
+            wins=wins, losses=losses, ties=ties, win_pct=wins / (wins + losses), rank=rank,
+            as_of=game_factory().as_of, retrieved_at=game_factory().retrieved_at, source_type="official",
+        )
+        for team, wins, losses, ties, rank in [("KT", 84, 49, 4, 1), ("SS", 81, 52, 3, 2)]
+    ]
+    games = [game_factory(game_id=f"shared-{i}", away_team="KT", home_team="SS") for i in range(3)]
+    games += [game_factory(game_id=f"kt-{i}", away_team="KT", home_team="LG") for i in range(4)]
+    games += [game_factory(game_id=f"ss-{i}", away_team="SS", home_team="LG") for i in range(5)]
+    result = compute_magic_number(standings, games)
+    assert result.combined_magic_number == 5
+    assert result.combined_tie_number == 5
+    assert result.strict_wins_needed == 5
+    assert result.wins_needed == 5
+
+
+def test_combined_threshold_matches_exhaustive_win_loss_draw_outcomes(mini_snapshot):
+    from fractions import Fraction
+    from itertools import product
+
+    from kt_championship_engine.simulation import _combined_thresholds
+
+    kt, ss = mini_snapshot.standings[:2]
+    # Two linked games, plus one independent game per team: all 81 outcomes.
+    for target in [kt, kt.model_copy(update={"wins": ss.wins, "losses": ss.losses, "ties": ss.ties})]:
+        strict_bad = tie_bad = -1
+        for results in product((0, 1, 2), repeat=4):
+            tw, tl, sw, sl = target.wins, target.losses, ss.wins, ss.losses
+            count = 0
+            for result in results[:2]:
+                if result == 0:
+                    tw += 1
+                    sl += 1
+                    count += 2
+                elif result == 1:
+                    tl += 1
+                    sw += 1
+            if results[2] == 0:
+                tw += 1
+                count += 1
+            elif results[2] == 1:
+                tl += 1
+            if results[3] == 0:
+                sl += 1
+                count += 1
+            elif results[3] == 1:
+                sw += 1
+            left, right = Fraction(tw, tw + tl), Fraction(sw, sw + sl)
+            if left <= right:
+                strict_bad = max(strict_bad, count)
+            if left < right:
+                tie_bad = max(tie_bad, count)
+        expected = tuple(bad + 1 if bad < 6 else None for bad in (strict_bad, tie_bad))
+        assert _combined_thresholds(target, ss, 3, 3, 2) == expected
+
+
+def test_combined_threshold_equal_denominators_and_impossible(mini_snapshot):
+    from kt_championship_engine.simulation import _combined_thresholds
+
+    kt, ss = mini_snapshot.standings[:2]
+    equal = kt.model_copy(update={"wins": 80, "losses": 60, "ties": 0})
+    rival = ss.model_copy(update={"wins": 80, "losses": 60, "ties": 0})
+    assert _combined_thresholds(equal, rival, 4, 4, 0) == (5, 4)
+    assert _combined_thresholds(equal, rival, 0, 0, 0) == (None, 0)
+    assert _combined_thresholds(equal.model_copy(update={"wins": 79}), rival, 0, 0, 0) == (None, None)
+    assert _combined_thresholds(equal.model_copy(update={"wins": 81}), rival, 0, 0, 0) == (0, 0)

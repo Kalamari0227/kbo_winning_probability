@@ -22,7 +22,7 @@ def test_run_command_writes_summary(cli_runner, fixture_snapshot, tmp_path):
     assert result.exit_code == 0, result.stdout
     assert (tmp_path / "summary.md").exists()
     assert "현재 매직넘버(결합)" in result.stdout
-    assert "동률 도달 기준(결합)" in result.stdout
+    assert "삼성 이상 승률 보장 기준(결합)" in result.stdout
     assert "KT 단독 추가승수" in result.stdout
 
 

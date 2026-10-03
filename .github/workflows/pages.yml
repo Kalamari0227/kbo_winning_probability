@@ -94,19 +94,24 @@ jobs:
           )
           PY
 
-      - name: Reuse the published calculation on code pushes
+      - name: Preserve the newest verified calculation on code pushes
         if: github.event_name == 'push'
         run: |
+          mkdir -p artifacts
           curl --fail --silent --show-error --location \
             https://kalamari0227.github.io/kbo_winning_probability/dashboard-data.json \
-            --output data/pages_seed.json
-          python - <<'PY'
+            --output artifacts/published-dashboard.json
+          uv run python - <<'PY'
           import json
           from pathlib import Path
+          from kt_championship_engine.pages import select_verified_push_state
 
-          state = json.loads(Path("data/pages_seed.json").read_text(encoding="utf-8"))
-          if not isinstance(state.get("summary"), dict) or not isinstance(state.get("snapshot_manifest"), dict):
-              raise SystemExit("The currently published dashboard data is invalid.")
+          seed_path = Path("data/pages_seed.json")
+          committed = json.loads(seed_path.read_text(encoding="utf-8"))
+          published = json.loads(Path("artifacts/published-dashboard.json").read_text(encoding="utf-8"))
+          selected = select_verified_push_state(committed, published)
+          seed_path.write_text(json.dumps(selected, ensure_ascii=False), encoding="utf-8")
+          print("Using committed calculation." if selected is committed else "Preserved newer published calculation.")
           PY
 
       - name: Build static dashboard

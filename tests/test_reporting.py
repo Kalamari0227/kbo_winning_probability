@@ -17,7 +17,7 @@ def test_report_contains_provenance_and_top_risk(tmp_path, simulation_result, fo
     assert "위험 경기 TOP 5" in text
     assert "최종 1~3위 확률" in text
     assert "현재 매직넘버(결합)" in text
-    assert "동률 도달 기준(결합)" in text
+    assert "삼성 이상 승률 보장 기준(결합)" in text
     assert "KT 단독 추가승수" in text
     assert artifacts.game_forecasts_csv.exists()
     assert artifacts.final_wins_distribution_csv.exists()

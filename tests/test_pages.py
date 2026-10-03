@@ -40,3 +40,28 @@ def test_build_pages_publishes_seed_state_with_project_relative_assets(tmp_path:
     assert (output_dir / "assets" / "teams" / "KT.png").is_file()
     assert 'new URL(`assets/teams/${team}.png`, document.baseURI)' in dashboard_js
     assert (output_dir / ".nojekyll").is_file()
+
+
+def test_push_preserves_newest_verified_calculation():
+    from kt_championship_engine.pages import select_verified_push_state
+
+    def state(day, hour):
+        return {"summary": {"remaining_game_count": 31, "jev_successful_game_count": 31},
+                "snapshot_manifest": {"as_of": f"2026-10-{day:02d}T00:00:00Z",
+                                      "retrieved_at": f"2026-10-{day:02d}T{hour:02d}:00:00Z"}}
+    old, current, later = state(1, 12), state(3, 12), state(3, 13)
+    assert select_verified_push_state(current, old) is current
+    assert select_verified_push_state(old, current) is current
+    assert select_verified_push_state(current, later) is later
+    assert select_verified_push_state(current, current.copy()) is current
+
+
+def test_push_rejects_base_only_calculation():
+    import pytest
+
+    from kt_championship_engine.pages import select_verified_push_state
+
+    base_only = {"summary": {"remaining_game_count": 31, "jev_successful_game_count": 0},
+                 "snapshot_manifest": {}}
+    with pytest.raises(ValueError, match="successful Jev"):
+        select_verified_push_state(base_only, base_only)

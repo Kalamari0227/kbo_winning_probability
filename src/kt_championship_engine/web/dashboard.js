@@ -173,7 +173,7 @@ function renderMagic(summary) {
   const magic = summary.magic_number || {};
   grid.replaceChildren(
     metricCard("KT 단독 추가승 매직넘버", `${magic.strict_wins_needed ?? "—"}승`, "삼성 등 경쟁팀 잔여경기 반영"),
-    metricCard("KT·삼성 결합 매직넘버", `${magic.combined_magic_number ?? "—"}`, "KT 승리와 삼성 패배 결합 기준"),
+    metricCard("KT·삼성 결합 매직넘버", `${magic.combined_magic_number ?? "—"}`, "삼성 상대 승률 보장 · 맞대결 승은 2개 · 전체팀 자력 기준과 별개"),
     metricCard("가장 유력한 확정일", compactDate(summary.most_likely_confirmation_date), percent(summary.most_likely_confirmation_probability)),
   );
 }

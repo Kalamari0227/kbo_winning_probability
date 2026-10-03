@@ -155,14 +155,11 @@ def run(
     if magic_number.combined_magic_number is not None:
         typer.echo(f"KT-삼성 결합 매직넘버: {magic_number.combined_magic_number}")
         typer.echo(f"현재 매직넘버(결합): {magic_number.combined_magic_number}")
-        typer.echo(
-            f"계산: {magic_number.season_games + 1} - (KT {magic_number.kt_current_wins}승 + "
-            f"삼성 {magic_number.ss_current_losses}패) = "
-            f"{magic_number.combined_magic_number}"
-        )
+        typer.echo("계산: 승/(승+패) 정확 비교, 현재 무승부 및 잔여 맞대결 연동; 맞대결 KT 승은 2개")
+        typer.echo("결합은 삼성 상대 보장, 자력 추가승은 전체 경쟁팀 상대 보장; 동률은 우승 미확정")
         typer.echo(f"KT 단독 매직넘버(추가 승리): {magic_number.strict_wins_needed}")
         typer.echo(f"KT 단독 추가승수(동률 또는 타이브레이크 기준): {magic_number.wins_needed}")
-        typer.echo(f"동률 도달 기준(결합): {magic_number.combined_tie_number}")
+        typer.echo(f"삼성 이상 승률 보장 기준(결합): {magic_number.combined_tie_number}")
     else:
         typer.echo(f"현재 매직넘버: {magic_number.wins_needed}")
     date_rows = date_confirmation_probabilities(result)

@@ -4,6 +4,7 @@ from collections import Counter
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from datetime import date
+from fractions import Fraction
 
 import numpy as np
 
@@ -45,6 +46,7 @@ class MagicNumber:
     competitor_current_losses: int | None = None
     ss_current_losses: int | None = None
     season_games: int | None = None
+    combined_definition: str = "KT 추가승 + 삼성 추가패의 모든 가능한 배분에서 삼성보다 높은 최종 승률 보장"
 
 
 @dataclass(frozen=True)
@@ -407,8 +409,12 @@ def compute_magic_number(standings: list[TeamStanding], remaining: list[Game]) -
     season_games = kt.played + remaining_counts.get("KT", 0)
     competitor = standing_by_team[competitor_team]
     samsung = standing_by_team.get("SS")
-    combined_tie_number = max(0, season_games - kt.wins - samsung.losses) if samsung else None
-    combined_magic_number = max(0, season_games + 1 - kt.wins - samsung.losses) if samsung else None
+    combined_magic_number, combined_tie_number = (
+        _combined_thresholds(
+            kt, samsung, kt_remaining, remaining_counts.get("SS", 0),
+            sum(game.is_head_to_head("KT", "SS") for game in remaining),
+        ) if samsung else (None, None)
+    )
     return MagicNumber(
         wins_needed=wins_needed,
         strict_wins_needed=strict_wins_needed,
@@ -483,10 +489,46 @@ def date_confirmation_probabilities(
     return [DateConfirmation(day, count / denominator, count) for day, count in sorted(counts.items())]
 
 
-def _future_win_pct(standing: TeamStanding, additional_wins: int, additional_losses: int) -> float:
+def _combined_thresholds(
+    target: TeamStanding, competitor: TeamStanding, target_remaining: int,
+    competitor_remaining: int, head_to_head: int,
+) -> tuple[int | None, int | None]:
+    """Worst feasible final percentage for each count of target wins + rival losses.
+
+    A head-to-head win counts twice; a head-to-head draw reduces both denominators.
+    Other draws can only improve the target's position relative to replacing them
+    with target losses/rival wins, so those replacements give the worst case.
+    """
+    strict_bad = tie_bad = -1
+    max_events = target_remaining + competitor_remaining
+    for shared_draws in range(head_to_head + 1):
+        for shared_wins in range(head_to_head - shared_draws + 1):
+            for other_wins in range(target_remaining - head_to_head + 1):
+                for other_losses in range(competitor_remaining - head_to_head + 1):
+                    target_wins = target.wins + shared_wins + other_wins
+                    rival_wins = (
+                        competitor.wins + competitor_remaining
+                        - shared_draws - shared_wins - other_losses
+                    )
+                    target_decisions = target.wins + target.losses + target_remaining - shared_draws
+                    rival_decisions = competitor.wins + competitor.losses + competitor_remaining - shared_draws
+                    target_pct = Fraction(target_wins, target_decisions) if target_decisions else Fraction(0)
+                    rival_pct = Fraction(rival_wins, rival_decisions) if rival_decisions else Fraction(0)
+                    events = 2 * shared_wins + other_wins + other_losses
+                    if target_pct <= rival_pct:
+                        strict_bad = max(strict_bad, events)
+                    if target_pct < rival_pct:
+                        tie_bad = max(tie_bad, events)
+    return (
+        strict_bad + 1 if strict_bad < max_events else None,
+        tie_bad + 1 if tie_bad < max_events else None,
+    )
+
+
+def _future_win_pct(standing: TeamStanding, additional_wins: int, additional_losses: int) -> Fraction:
     wins = standing.wins + additional_wins
     losses = standing.losses + additional_losses
-    return wins / (wins + losses) if wins + losses else 0.0
+    return Fraction(wins, wins + losses) if wins + losses else Fraction(0)
 
 
 def _maximum_competitor_pct(
@@ -496,7 +538,7 @@ def _maximum_competitor_pct(
     *,
     target_wins: int,
     target_remaining: int,
-) -> float:
+) -> Fraction:
     forced_target_head_to_head_wins = max(0, target_wins - max(0, target_remaining - head_to_head_remaining))
     forced_target_head_to_head_wins = min(forced_target_head_to_head_wins, head_to_head_remaining)
     competitor_additional_wins = competitor_remaining - forced_target_head_to_head_wins

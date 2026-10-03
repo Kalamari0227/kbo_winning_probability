@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
@@ -51,3 +52,19 @@ def _load_publish_state(project_root: Path) -> tuple[dict[str, Any], str]:
         raise ValueError("latest snapshot exists without simulation artifacts or a Pages seed")
     with seed_path.open("r", encoding="utf-8") as stream:
         return json.load(stream), str(seed_path.relative_to(project_root))
+
+
+def select_verified_push_state(committed: dict[str, Any], published: dict[str, Any]) -> dict[str, Any]:
+    """Preserve newer scheduled runs while allowing verified local refreshes."""
+    def freshness(state: dict[str, Any]) -> tuple[datetime, datetime]:
+        summary, manifest = state.get("summary"), state.get("snapshot_manifest")
+        if not isinstance(summary, dict) or not isinstance(manifest, dict):
+            raise ValueError("dashboard calculation is invalid")
+        if summary.get("remaining_game_count", 0) and not summary.get("jev_successful_game_count", 0):
+            raise ValueError("refusing to publish a calculation without successful Jev forecasts")
+        return (
+            datetime.fromisoformat(manifest["as_of"].replace("Z", "+00:00")),
+            datetime.fromisoformat(manifest["retrieved_at"].replace("Z", "+00:00")),
+        )
+
+    return published if freshness(published) > freshness(committed) else committed
