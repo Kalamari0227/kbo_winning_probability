@@ -4,6 +4,7 @@ from datetime import date
 from pathlib import Path
 
 import numpy as np
+import pytest
 
 from kt_championship_engine import simulation as simulation_module
 from kt_championship_engine.scheduling import estimate_makeup_dates
@@ -185,7 +186,11 @@ def test_simulation_resolves_first_place_in_batch(mini_snapshot, forecasts, monk
     assert result.first_place_counts["KT"] + result.first_place_counts["SS"] <= 32
 
 
-def test_october_first_draw_aware_magic_regression(game_factory):
+@pytest.mark.parametrize(
+    "kt_record,ss_record,kt_other,ss_other,expected",
+    [((84, 49, 4), (81, 52, 3), 4, 5, 5), ((85, 49, 5), (82, 53, 3), 2, 3, 2)],
+)
+def test_october_draw_aware_magic_regression(game_factory, kt_record, ss_record, kt_other, ss_other, expected):
     from kt_championship_engine.schemas import TeamStanding
 
     standings = [
@@ -194,16 +199,16 @@ def test_october_first_draw_aware_magic_regression(game_factory):
             wins=wins, losses=losses, ties=ties, win_pct=wins / (wins + losses), rank=rank,
             as_of=game_factory().as_of, retrieved_at=game_factory().retrieved_at, source_type="official",
         )
-        for team, wins, losses, ties, rank in [("KT", 84, 49, 4, 1), ("SS", 81, 52, 3, 2)]
+        for team, wins, losses, ties, rank in [("KT", *kt_record, 1), ("SS", *ss_record, 2)]
     ]
     games = [game_factory(game_id=f"shared-{i}", away_team="KT", home_team="SS") for i in range(3)]
-    games += [game_factory(game_id=f"kt-{i}", away_team="KT", home_team="LG") for i in range(4)]
-    games += [game_factory(game_id=f"ss-{i}", away_team="SS", home_team="LG") for i in range(5)]
+    games += [game_factory(game_id=f"kt-{i}", away_team="KT", home_team="LG") for i in range(kt_other)]
+    games += [game_factory(game_id=f"ss-{i}", away_team="SS", home_team="LG") for i in range(ss_other)]
     result = compute_magic_number(standings, games)
-    assert result.combined_magic_number == 5
-    assert result.combined_tie_number == 5
-    assert result.strict_wins_needed == 5
-    assert result.wins_needed == 5
+    assert result.combined_magic_number == expected
+    assert result.combined_tie_number == expected
+    assert result.strict_wins_needed == expected
+    assert result.wins_needed == expected
 
 
 def test_combined_threshold_matches_exhaustive_win_loss_draw_outcomes(mini_snapshot):

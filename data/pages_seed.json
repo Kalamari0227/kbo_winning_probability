@@ -4,69 +4,69 @@
     "version": "0.1.0",
     "simulations": 1000000,
     "seed": 20260920,
-    "kt_first_place_probability": 0.930639,
-    "ss_first_place_probability": 0.069361,
-    "kt_expected_final_wins": 88.492273,
-    "ss_expected_final_wins": 85.794869,
-    "lg_expected_final_wins": 78.741336,
+    "kt_first_place_probability": 0.982636,
+    "ss_first_place_probability": 0.017364,
+    "kt_expected_final_wins": 87.849508,
+    "ss_expected_final_wins": 85.144885,
+    "lg_expected_final_wins": 78.091778,
     "final_win_stats": {
       "DO": {
-        "mean": 72.263224,
+        "mean": 72.913422,
         "p05": 71.0,
-        "p50": 72.0,
+        "p50": 73.0,
         "p95": 74.0
       },
       "HAN": {
-        "mean": 57.462299,
-        "p05": 56.0,
+        "mean": 56.89318,
+        "p05": 55.0,
         "p50": 57.0,
-        "p95": 59.0
+        "p95": 58.0
       },
       "KI": {
-        "mean": 77.083949,
-        "p05": 75.0,
-        "p50": 77.0,
-        "p95": 79.0
+        "mean": 77.751291,
+        "p05": 76.0,
+        "p50": 78.0,
+        "p95": 80.0
       },
       "KIW": {
-        "mean": 49.788042,
-        "p05": 48.0,
+        "mean": 50.364142,
+        "p05": 49.0,
         "p50": 50.0,
-        "p95": 51.0
+        "p95": 52.0
       },
       "KT": {
-        "mean": 88.492273,
-        "p05": 87.0,
-        "p50": 89.0,
+        "mean": 87.849508,
+        "p05": 86.0,
+        "p50": 88.0,
         "p95": 90.0
       },
       "LG": {
-        "mean": 78.741336,
-        "p05": 77.0,
-        "p50": 79.0,
-        "p95": 81.0
+        "mean": 78.091778,
+        "p05": 76.0,
+        "p50": 78.0,
+        "p95": 80.0
       },
       "LOT": {
-        "mean": 64.543877,
+        "mean": 64.163982,
         "p05": 62.0,
+        "p50": 64.0,
+        "p95": 66.0
+      },
+      "NC": {
+        "mean": 65.335773,
+        "p05": 64.0,
         "p50": 65.0,
         "p95": 67.0
       },
-      "NC": {
-        "mean": 65.852028,
-        "p05": 64.0,
-        "p50": 66.0,
-        "p95": 68.0
-      },
       "SS": {
-        "mean": 85.794869,
-        "p05": 84.0,
-        "p50": 86.0,
-        "p95": 88.0
+        "mean": 85.144885,
+        "p05": 83.0,
+        "p50": 85.0,
+        "p95": 87.0
       },
       "SSG": {
-        "mean": 63.978103,
-        "p05": 62.0,
+        "mean": 64.492039,
+        "p05": 63.0,
         "p50": 64.0,
         "p95": 66.0
       }
@@ -75,7 +75,7 @@
       "DO": {
         "1": 0.0,
         "2": 0.0,
-        "3": 0.00086
+        "3": 0.002391
       },
       "HAN": {
         "1": 0.0,
@@ -85,7 +85,7 @@
       "KI": {
         "1": 0.0,
         "2": 0.0,
-        "3": 0.308988
+        "3": 0.531573
       },
       "KIW": {
         "1": 0.0,
@@ -93,14 +93,14 @@
         "3": 0.0
       },
       "KT": {
-        "1": 0.930639,
-        "2": 0.069361,
+        "1": 0.982636,
+        "2": 0.017364,
         "3": 0.0
       },
       "LG": {
         "1": 0.0,
         "2": 0.0,
-        "3": 0.690152
+        "3": 0.466036
       },
       "LOT": {
         "1": 0.0,
@@ -113,8 +113,8 @@
         "3": 0.0
       },
       "SS": {
-        "1": 0.069361,
-        "2": 0.930639,
+        "1": 0.017364,
+        "2": 0.982636,
         "3": 0.0
       },
       "SSG": {
@@ -124,12 +124,12 @@
       }
     },
     "top_three_probabilities": {
-      "DO": 0.00086,
+      "DO": 0.002391,
       "HAN": 0.0,
-      "KI": 0.308988,
+      "KI": 0.531573,
       "KIW": 0.0,
       "KT": 1.0,
-      "LG": 0.690152,
+      "LG": 0.466036,
       "LOT": 0.0,
       "NC": 0.0,
       "SS": 1.0,
@@ -137,115 +137,115 @@
     },
     "rank_probability_note": "동률이 공식 타이브레이크로 해소되지 않은 경우 해당 순위 구간에 fractional credit을 부여하며, KT-삼성 단독 1위 동률에는 설정된 단일경기 타이브레이크 확률을 적용합니다.",
     "first_place_counts": {
-      "KT": 930639,
-      "SS": 69361,
-      "LG": 0,
+      "KT": 982636,
+      "SS": 17364,
       "KI": 0,
+      "LG": 0,
       "DO": 0,
-      "NC": 0,
       "SSG": 0,
+      "NC": 0,
       "LOT": 0,
       "HAN": 0,
       "KIW": 0
     },
     "co_champion_before_tiebreak_count": 0,
     "tiebreak_resolved_count": 0,
-    "unknown_confirmation_count": 69361,
+    "unknown_confirmation_count": 17364,
     "kt_won_unknown_confirmation_count": 0,
     "kt_won_unknown_confirmation_probability": 0.0,
     "unresolved_first_place_count": 0,
     "linked_game_sample_count": 3,
     "magic_number": {
-      "wins_needed_for_tie_or_tiebreak": 4,
-      "strict_wins_needed": 4,
+      "wins_needed_for_tie_or_tiebreak": 2,
+      "strict_wins_needed": 2,
       "limiting_competitor": "SS",
-      "combined_magic_number": 4,
-      "combined_tie_number": 4,
+      "combined_magic_number": 2,
+      "combined_tie_number": 2,
       "combined_definition": "KT 추가승 + 삼성 추가패의 모든 가능한 배분에서 삼성보다 높은 최종 승률 보장",
       "kt_current_wins": 85,
-      "competitor_current_losses": 52,
-      "ss_current_losses": 52,
+      "competitor_current_losses": 53,
+      "ss_current_losses": 53,
       "season_games": 144
     },
     "date_confirmation_probabilities": [
       {
         "date": "2026-10-05",
-        "probability": 0.057978,
-        "count": 57978
+        "probability": 0.243293,
+        "count": 243293
       },
       {
         "date": "2026-10-06",
-        "probability": 0.332191,
-        "count": 332191
+        "probability": 0.504028,
+        "count": 504028
       },
       {
         "date": "2026-10-07",
-        "probability": 0.305594,
-        "count": 305594
+        "probability": 0.145273,
+        "count": 145273
       },
       {
         "date": "2026-10-09",
-        "probability": 0.076732,
-        "count": 76732
+        "probability": 0.03965,
+        "count": 39650
       },
       {
         "date": "2026-10-11",
-        "probability": 0.101335,
-        "count": 101335
+        "probability": 0.033427,
+        "count": 33427
       },
       {
         "date": "2026-10-12",
-        "probability": 0.056809,
-        "count": 56809
+        "probability": 0.016965,
+        "count": 16965
       }
     ],
     "most_likely_confirmation_date": "2026-10-06",
-    "most_likely_confirmation_probability": 0.332191,
+    "most_likely_confirmation_probability": 0.504028,
     "estimated_makeup_date_count": 0,
     "estimated_makeup_date_start": null,
     "estimated_makeup_date_end": null,
     "estimated_schedule_method": null,
     "risk_games_top5": [
       {
-        "game_id": "20261011-scheduled-KT-SS-788",
+        "game_id": "20261011KTSS0",
         "team": "SS",
         "opponent": "KT",
-        "combined_probability": 0.5101269931402006,
-        "risk_distance": 0.010126993140200602
+        "combined_probability": 0.507894231387523,
+        "risk_distance": 0.007894231387522987
       },
       {
         "game_id": "20261012-scheduled-KT-SS-791",
         "team": "SS",
         "opponent": "KT",
-        "combined_probability": 0.5117269931402006,
-        "risk_distance": 0.011726993140200648
+        "combined_probability": 0.507894231387523,
+        "risk_distance": 0.007894231387522987
       },
       {
         "game_id": "20261006SSHT0",
         "team": "KI",
         "opponent": "SS",
-        "combined_probability": 0.46708658962430494,
-        "risk_distance": 0.03291341037569506
+        "combined_probability": 0.4744102352470549,
+        "risk_distance": 0.02558976475294511
       },
       {
         "game_id": "20261009SSSK0",
         "team": "SSG",
         "opponent": "SS",
-        "combined_probability": 0.4355474810368583,
-        "risk_distance": 0.06445251896314169
+        "combined_probability": 0.4419531876215559,
+        "risk_distance": 0.05804681237844411
       },
       {
         "game_id": "20261007SSKT0",
         "team": "KT",
         "opponent": "SS",
-        "combined_probability": 0.5747028537024333,
-        "risk_distance": 0.07470285370243335
+        "combined_probability": 0.5761271602829516,
+        "risk_distance": 0.07612716028295163
       }
     ],
     "risk_scope": "KT/SS remaining games",
-    "data_as_of": "2026-10-03T00:00:00+00:00",
+    "data_as_of": "2026-10-04T00:00:00+00:00",
     "data_as_of_precision": "date",
-    "data_retrieved_at": "2026-10-03T12:08:16.752750+00:00",
+    "data_retrieved_at": "2026-10-04T14:22:49.969990+00:00",
     "data_source_type": "official",
     "data_stale": false,
     "warnings": [
@@ -255,32 +255,32 @@
     ],
     "configured_base_weight": 0.6,
     "configured_jev_weight": 0.4,
-    "effective_base_weight": 0.6000000000000002,
-    "effective_jev_weight": 0.40000000000000013,
+    "effective_base_weight": 0.5999999999999999,
+    "effective_jev_weight": 0.4000000000000001,
     "jev_status_counts": {
-      "ok": 31
+      "ok": 26
     },
     "forecast_mode": "jev_adjusted",
     "jev_preflight_status": "ok",
     "jev_preflight_http_status": 200,
     "jev_preflight_display": "성공 (HTTP 200)",
-    "jev_successful_game_count": 31,
+    "jev_successful_game_count": 26,
     "jev_failed_call_count": 0,
     "base_only_game_count": 0,
-    "remaining_game_count": 31,
-    "actual_result_count": 689,
+    "remaining_game_count": 26,
+    "actual_result_count": 694,
     "feature_quality_counts": {
       "mixed": 720
     },
     "source_record_counts": {
       "official": 740,
-      "estimated": 176
+      "estimated": 150
     },
     "source_proportions": {
-      "official": 0.8078602620087336,
-      "estimated": 0.19213973799126638
+      "official": 0.8314606741573034,
+      "estimated": 0.16853932584269662
     },
-    "inferred_schedule_identity_count": 30,
+    "inferred_schedule_identity_count": 25,
     "tiebreak_policy": "single_game",
     "future_game_tie_model": "bernoulli_no_ties"
   },
@@ -288,222 +288,122 @@
     {
       "team": "KT",
       "name": "KT Wiz",
-      "played": 138,
+      "played": 139,
       "wins": 85,
       "losses": 49,
-      "ties": 4,
+      "ties": 5,
       "rank": 1,
-      "remaining": 6,
+      "remaining": 5,
       "source_type": "official"
     },
     {
       "team": "SS",
       "name": "삼성 라이온즈",
-      "played": 137,
+      "played": 138,
       "wins": 82,
-      "losses": 52,
+      "losses": 53,
       "ties": 3,
       "rank": 2,
+      "remaining": 6,
+      "source_type": "official"
+    },
+    {
+      "team": "KI",
+      "name": "KIA 타이거즈",
+      "played": 137,
+      "wins": 74,
+      "losses": 61,
+      "ties": 2,
+      "rank": 3,
       "remaining": 7,
       "source_type": "official"
     },
     {
       "team": "LG",
       "name": "LG 트윈스",
-      "played": 137,
+      "played": 138,
       "wins": 75,
-      "losses": 61,
+      "losses": 62,
       "ties": 1,
-      "rank": 3,
-      "remaining": 7,
-      "source_type": "official"
-    },
-    {
-      "team": "KI",
-      "name": "KIA 타이거즈",
-      "played": 136,
-      "wins": 73,
-      "losses": 61,
-      "ties": 2,
       "rank": 4,
-      "remaining": 8,
+      "remaining": 6,
       "source_type": "official"
     },
     {
       "team": "DO",
       "name": "두산 베어스",
-      "played": 139,
-      "wins": 70,
+      "played": 140,
+      "wins": 71,
       "losses": 64,
       "ties": 5,
       "rank": 5,
+      "remaining": 4,
+      "source_type": "official"
+    },
+    {
+      "team": "SSG",
+      "name": "SSG 랜더스",
+      "played": 139,
+      "wins": 62,
+      "losses": 72,
+      "ties": 5,
+      "rank": 6,
       "remaining": 5,
       "source_type": "official"
     },
     {
       "team": "NC",
       "name": "NC 다이노스",
-      "played": 138,
+      "played": 139,
       "wins": 63,
-      "losses": 73,
+      "losses": 74,
       "ties": 2,
-      "rank": 6,
-      "remaining": 6,
-      "source_type": "official"
-    },
-    {
-      "team": "SSG",
-      "name": "SSG 랜더스",
-      "played": 138,
-      "wins": 61,
-      "losses": 72,
-      "ties": 5,
       "rank": 7,
-      "remaining": 6,
+      "remaining": 5,
       "source_type": "official"
     },
     {
       "team": "LOT",
       "name": "롯데 자이언츠",
-      "played": 136,
+      "played": 137,
       "wins": 61,
       "losses": 73,
-      "ties": 2,
+      "ties": 3,
       "rank": 8,
-      "remaining": 8,
+      "remaining": 7,
       "source_type": "official"
     },
     {
       "team": "HAN",
       "name": "한화 이글스",
-      "played": 139,
+      "played": 140,
       "wins": 55,
-      "losses": 80,
+      "losses": 81,
       "ties": 4,
       "rank": 9,
-      "remaining": 5,
+      "remaining": 4,
       "source_type": "official"
     },
     {
       "team": "KIW",
       "name": "키움 히어로즈",
-      "played": 140,
-      "wins": 48,
+      "played": 141,
+      "wins": 49,
       "losses": 88,
       "ties": 4,
       "rank": 10,
-      "remaining": 4,
+      "remaining": 3,
       "source_type": "official"
     }
   ],
   "postseason_magic_numbers": {
     "KT": 0,
     "SS": 0,
-    "LG": 0,
     "KI": 0,
+    "LG": 0,
     "DO": 0
   },
   "remaining_games": [
-    {
-      "game_id": "20261004HTLG0",
-      "date": "2026-10-04",
-      "date_status": "official",
-      "venue": "잠실",
-      "away_team": "KI",
-      "home_team": "LG",
-      "away_starter": {
-        "name": "시라카와",
-        "status": "official"
-      },
-      "home_starter": {
-        "name": "김윤식",
-        "status": "official"
-      },
-      "base_probability": 0.5323049354523637,
-      "jev_probability": 0.5740000000000001,
-      "combined_probability": 0.5489829612714182,
-      "jev_status": "ok"
-    },
-    {
-      "game_id": "20261004LTKT0",
-      "date": "2026-10-04",
-      "date_status": "official",
-      "venue": "수원",
-      "away_team": "LOT",
-      "home_team": "KT",
-      "away_starter": {
-        "name": "나균안",
-        "status": "official"
-      },
-      "home_starter": {
-        "name": "배제성",
-        "status": "official"
-      },
-      "base_probability": 0.640975361147466,
-      "jev_probability": 0.642,
-      "combined_probability": 0.6413852166884797,
-      "jev_status": "ok"
-    },
-    {
-      "game_id": "20261004OBSS0",
-      "date": "2026-10-04",
-      "date_status": "official",
-      "venue": "대구",
-      "away_team": "DO",
-      "home_team": "SS",
-      "away_starter": {
-        "name": "벤자민",
-        "status": "official"
-      },
-      "home_starter": {
-        "name": "페덱",
-        "status": "official"
-      },
-      "base_probability": 0.6026587314836901,
-      "jev_probability": 0.6599999999999999,
-      "combined_probability": 0.625595238890214,
-      "jev_status": "ok"
-    },
-    {
-      "game_id": "20261004SKNC0",
-      "date": "2026-10-04",
-      "date_status": "official",
-      "venue": "창원",
-      "away_team": "SSG",
-      "home_team": "NC",
-      "away_starter": {
-        "name": "최민준",
-        "status": "official"
-      },
-      "home_starter": {
-        "name": "클레빈저",
-        "status": "official"
-      },
-      "base_probability": 0.5136466099411272,
-      "jev_probability": 0.476,
-      "combined_probability": 0.4985879659646763,
-      "jev_status": "ok"
-    },
-    {
-      "game_id": "20261004WOHH0",
-      "date": "2026-10-04",
-      "date_status": "official",
-      "venue": "대전",
-      "away_team": "KIW",
-      "home_team": "HAN",
-      "away_starter": {
-        "name": "안우진",
-        "status": "official"
-      },
-      "home_starter": {
-        "name": "박준영",
-        "status": "official"
-      },
-      "base_probability": 0.5493224105558401,
-      "jev_probability": 0.49800000000000005,
-      "combined_probability": 0.528793446333504,
-      "jev_status": "ok"
-    },
     {
       "game_id": "20261005HTLG0",
       "date": "2026-10-05",
@@ -512,16 +412,16 @@
       "away_team": "KI",
       "home_team": "LG",
       "away_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "올러",
+        "status": "official"
       },
       "home_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "톨허스트",
+        "status": "official"
       },
-      "base_probability": 0.5323049354523637,
-      "jev_probability": 0.564,
-      "combined_probability": 0.5449829612714182,
+      "base_probability": 0.5106483896927315,
+      "jev_probability": 0.524,
+      "combined_probability": 0.515989033815639,
       "jev_status": "ok"
     },
     {
@@ -532,16 +432,16 @@
       "away_team": "LOT",
       "home_team": "KT",
       "away_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "김진욱",
+        "status": "official"
       },
       "home_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "로건",
+        "status": "official"
       },
       "base_probability": 0.640975361147466,
-      "jev_probability": 0.634,
-      "combined_probability": 0.6381852166884796,
+      "jev_probability": 0.642,
+      "combined_probability": 0.6413852166884797,
       "jev_status": "ok"
     },
     {
@@ -552,16 +452,16 @@
       "away_team": "DO",
       "home_team": "SS",
       "away_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "잭로그",
+        "status": "official"
       },
       "home_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "후라도",
+        "status": "official"
       },
-      "base_probability": 0.6026587314836901,
-      "jev_probability": 0.6519999999999999,
-      "combined_probability": 0.6223952388902141,
+      "base_probability": 0.5937283820829198,
+      "jev_probability": 0.664,
+      "combined_probability": 0.6218370292497519,
       "jev_status": "ok"
     },
     {
@@ -572,16 +472,16 @@
       "away_team": "SSG",
       "home_team": "NC",
       "away_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "아빌라",
+        "status": "official"
       },
       "home_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "토다",
+        "status": "official"
       },
-      "base_probability": 0.5136466099411272,
-      "jev_probability": 0.472,
-      "combined_probability": 0.4969879659646763,
+      "base_probability": 0.5094488749492515,
+      "jev_probability": 0.466,
+      "combined_probability": 0.4920693249695509,
       "jev_status": "ok"
     },
     {
@@ -592,16 +492,16 @@
       "away_team": "KIW",
       "home_team": "HAN",
       "away_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "전준표",
+        "status": "official"
       },
       "home_starter": {
-        "name": null,
-        "status": "unavailable"
+        "name": "강건우",
+        "status": "official"
       },
-      "base_probability": 0.5493224105558401,
-      "jev_probability": 0.502,
-      "combined_probability": 0.530393446333504,
+      "base_probability": 0.5349042459938498,
+      "jev_probability": 0.4779999999999999,
+      "combined_probability": 0.5121425475963098,
       "jev_status": "ok"
     },
     {
@@ -619,9 +519,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.3345374940773848,
-      "jev_probability": 0.352,
-      "combined_probability": 0.3415224964464309,
+      "base_probability": 0.3477221984158275,
+      "jev_probability": 0.356,
+      "combined_probability": 0.35103331904949653,
       "jev_status": "ok"
     },
     {
@@ -639,9 +539,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5893308891504367,
-      "jev_probability": 0.5900000000000001,
-      "combined_probability": 0.589598533490262,
+      "base_probability": 0.5802500610855871,
+      "jev_probability": 0.588,
+      "combined_probability": 0.5833500366513522,
       "jev_status": "ok"
     },
     {
@@ -659,9 +559,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5186801903451564,
-      "jev_probability": 0.45600000000000007,
-      "combined_probability": 0.49360811420709394,
+      "base_probability": 0.510454031839222,
+      "jev_probability": 0.466,
+      "combined_probability": 0.4926724191035332,
       "jev_status": "ok"
     },
     {
@@ -679,9 +579,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.45393103402735546,
-      "jev_probability": 0.422,
-      "combined_probability": 0.4411586204164133,
+      "base_probability": 0.44977000783007265,
+      "jev_probability": 0.42000000000000004,
+      "combined_probability": 0.4378620046980436,
       "jev_status": "ok"
     },
     {
@@ -699,9 +599,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.479810982707175,
-      "jev_probability": 0.44799999999999995,
-      "combined_probability": 0.46708658962430494,
+      "base_probability": 0.49335039207842485,
+      "jev_probability": 0.446,
+      "combined_probability": 0.4744102352470549,
       "jev_status": "ok"
     },
     {
@@ -719,9 +619,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5254945378409765,
-      "jev_probability": 0.476,
-      "combined_probability": 0.5056967227045859,
+      "base_probability": 0.539953525373655,
+      "jev_probability": 0.502,
+      "combined_probability": 0.524772115224193,
       "jev_status": "ok"
     },
     {
@@ -739,9 +639,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5097487643754381,
-      "jev_probability": 0.44800000000000006,
-      "combined_probability": 0.4850492586252629,
+      "base_probability": 0.49725558311667384,
+      "jev_probability": 0.43200000000000005,
+      "combined_probability": 0.47115334987000435,
       "jev_status": "ok"
     },
     {
@@ -759,9 +659,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5610439621826968,
-      "jev_probability": 0.542,
-      "combined_probability": 0.5534263773096181,
+      "base_probability": 0.5651770234225035,
+      "jev_probability": 0.548,
+      "combined_probability": 0.5583062140535021,
       "jev_status": "ok"
     },
     {
@@ -779,9 +679,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5411952933006589,
-      "jev_probability": 0.5900000000000001,
-      "combined_probability": 0.5607171759803953,
+      "base_probability": 0.5238319278920365,
+      "jev_probability": 0.5740000000000001,
+      "combined_probability": 0.5438991567352218,
       "jev_status": "ok"
     },
     {
@@ -799,9 +699,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5591714228373889,
-      "jev_probability": 0.5980000000000001,
-      "combined_probability": 0.5747028537024333,
+      "base_probability": 0.5602119338049195,
+      "jev_probability": 0.6,
+      "combined_probability": 0.5761271602829516,
       "jev_status": "ok"
     },
     {
@@ -819,9 +719,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.4795613953633163,
-      "jev_probability": 0.446,
-      "combined_probability": 0.46613683721798976,
+      "base_probability": 0.4672469692208034,
+      "jev_probability": 0.434,
+      "combined_probability": 0.45394818153248206,
       "jev_status": "ok"
     },
     {
@@ -839,9 +739,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5148955909674856,
-      "jev_probability": 0.44000000000000006,
-      "combined_probability": 0.4849373545804914,
+      "base_probability": 0.5240868966318242,
+      "jev_probability": 0.454,
+      "combined_probability": 0.49605213797909453,
       "jev_status": "ok"
     },
     {
@@ -859,9 +759,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.44591246839476384,
-      "jev_probability": 0.42000000000000004,
-      "combined_probability": 0.4355474810368583,
+      "base_probability": 0.4512553127025931,
+      "jev_probability": 0.42800000000000005,
+      "combined_probability": 0.4419531876215559,
       "jev_status": "ok"
     },
     {
@@ -879,9 +779,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5148955909674856,
-      "jev_probability": 0.446,
-      "combined_probability": 0.4873373545804914,
+      "base_probability": 0.5240868966318242,
+      "jev_probability": 0.458,
+      "combined_probability": 0.4976521379790945,
       "jev_status": "ok"
     },
     {
@@ -900,8 +800,8 @@
         "status": "unavailable"
       },
       "base_probability": 0.4776648738828704,
-      "jev_probability": 0.45199999999999996,
-      "combined_probability": 0.4673989243297222,
+      "jev_probability": 0.45,
+      "combined_probability": 0.4665989243297223,
       "jev_status": "ok"
     },
     {
@@ -919,13 +819,13 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5711145657890458,
-      "jev_probability": 0.5700000000000001,
-      "combined_probability": 0.5706687394734276,
+      "base_probability": 0.5790805251725789,
+      "jev_probability": 0.576,
+      "combined_probability": 0.5778483151035474,
       "jev_status": "ok"
     },
     {
-      "game_id": "20261011-scheduled-KT-SS-788",
+      "game_id": "20261011KTSS0",
       "date": "2026-10-11",
       "date_status": "official",
       "venue": "대구",
@@ -939,13 +839,13 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.515544988567001,
-      "jev_probability": 0.502,
-      "combined_probability": 0.5101269931402006,
+      "base_probability": 0.5144903856458717,
+      "jev_probability": 0.49800000000000005,
+      "combined_probability": 0.507894231387523,
       "jev_status": "ok"
     },
     {
-      "game_id": "20261011-scheduled-LOT-KI-789",
+      "game_id": "20261011LTHT0",
       "date": "2026-10-11",
       "date_status": "official",
       "venue": "광주",
@@ -959,9 +859,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5648820980443233,
-      "jev_probability": 0.55,
-      "combined_probability": 0.5589292588265939,
+      "base_probability": 0.5771239076366279,
+      "jev_probability": 0.5900000000000001,
+      "combined_probability": 0.5822743445819768,
       "jev_status": "ok"
     },
     {
@@ -979,9 +879,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.515544988567001,
-      "jev_probability": 0.506,
-      "combined_probability": 0.5117269931402006,
+      "base_probability": 0.5144903856458717,
+      "jev_probability": 0.49800000000000005,
+      "combined_probability": 0.507894231387523,
       "jev_status": "ok"
     },
     {
@@ -999,9 +899,9 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5425468584303732,
-      "jev_probability": 0.518,
-      "combined_probability": 0.5327281150582239,
+      "base_probability": 0.563997047145853,
+      "jev_probability": 0.5519999999999999,
+      "combined_probability": 0.5591982282875118,
       "jev_status": "ok"
     },
     {
@@ -1019,17 +919,17 @@
         "name": null,
         "status": "unavailable"
       },
-      "base_probability": 0.5560742338710755,
+      "base_probability": 0.5641882965773123,
       "jev_probability": 0.5800000000000001,
-      "combined_probability": 0.5656445403226453,
+      "combined_probability": 0.5705129779463873,
       "jev_status": "ok"
     }
   ],
   "snapshot_manifest": {
     "season": 2026,
-    "as_of": "2026-10-03T00:00:00Z",
+    "as_of": "2026-10-04T00:00:00Z",
     "as_of_precision": "date",
-    "retrieved_at": "2026-10-03T12:08:16.752750Z",
+    "retrieved_at": "2026-10-04T14:22:49.969990Z",
     "source_type": "official",
     "source_uris": [
       "https://www.koreabaseball.com/Record/TeamRank/TeamRankDaily.aspx",
@@ -1039,43 +939,39 @@
       "https://www.koreabaseball.com/ws/Schedule.asmx/GetLineUpAnalysis"
     ],
     "source_hashes": [
-      "21e94df4b956ff14aeaa8b9de1c1889661cae80ad103642ece870616a48ce5cf",
+      "4845c3ac07040c108af9d904f927c29c31936c924f395882bfc5e1d4e64614c4",
       "8e9d8daafcf71c8ae110267316991ab7d4daad3dcc74853ebe2b4ddf5e2ca8e1",
-      "840f4a6e4db801651739bf55a5dc871c18fe70790deefc94b5c2f1da1f425dbe",
-      "218216c3caad1325890eebded0b71c4de7d7744a7fc66c59302498cd87810d2b",
-      "32b14ea0fc64522a4b38ffaa7413ca6c6322aa9f133de315cfcbd9ad9eba2130",
-      "b376c3f3a70e756494a0d569464448faa86e224e8d0154d98e430d43d0ffa4c4",
-      "a28c65fcf52ccdf4310ca06dc76466b6993395e9b81c7d2d6535a6adc916da91",
-      "502c15f726928d38b8769a528ec7cfc0d9dbf5482f605643061ae1aea078fd60",
-      "1b1d273d85967616bb633c6316fa79affe42ac6ba1a78103f77ffa52342abfc7",
-      "cc70a285678696454f2c233aad21df1bec2a2ac2dbc689c5f30047f5f90d6c17",
-      "c76bd95942966e84b07456a18d45006689f467f82895db4d8914b04f1af9e11e",
-      "69a6f4a05d643e6cd74dceb7e2a4ffa9ab7a393372a71b58b2a45fa1ed3babfd",
-      "75ebd465b33549b22cb0ae4b117c3c7545c51f7314f1a478c8a398917701c33e",
-      "c317629196275c0724662689f04e1b19bb3b3154fa279eb522aa546c87603eff",
-      "c317629196275c0724662689f04e1b19bb3b3154fa279eb522aa546c87603eff",
-      "fe71a42812a3ec4fd7c91e0fca916fc780018fde4c6496bbb2b3567688267f5f",
-      "fe71a42812a3ec4fd7c91e0fca916fc780018fde4c6496bbb2b3567688267f5f",
-      "73da0edf6fd2c5b5849cddf69db14bf651a9cf87adc813a80a3b797eaf278f69",
-      "fac041beee439d4abbcc15cd127df9d88265fac78ac1acef9812e79f1baca00a",
-      "0f512d7c1dd3744ac8a8b0b0f3df05a563530fcb513ad79c1ee3e2aa73030378",
-      "d8742b6cb10dec78d764a19470e10b67d74b73e67903bb3a9bb25d6f1444f4e2",
-      "d8742b6cb10dec78d764a19470e10b67d74b73e67903bb3a9bb25d6f1444f4e2",
-      "fc799cf7beb02871d511a753dd4987df46724d9d44b555d309f1b3161a808a8a",
-      "513f6bab87105c6f2681ae252d373e16113f87ada149690da122e8856a5af993",
-      "32efe0d8b2f274808b1ee00d3b0495a5d3116093451782c8f83226c96dfe2ff1",
-      "9bef687a10704c3c40de1ddd68256079c2c67fe47badc8b769530f7c41d7a3c6",
-      "91924cff411eb92c4181abc5e14ae7f89dce3f1f73530b4e2c48c31e498392d5",
-      "fd9445806dd3f41451632bca134c615252ecf6f8dc196219c30458d9598417b7",
-      "fd9445806dd3f41451632bca134c615252ecf6f8dc196219c30458d9598417b7",
-      "859f110ce167983d2f4a9d42166ff9e5f5433784aa2934ce196b234e1a837b4d",
-      "c9bb3db4a4652463c3edc40790c51bf1952d0998c4267e621c98d5e06d1579ae",
-      "c9bb3db4a4652463c3edc40790c51bf1952d0998c4267e621c98d5e06d1579ae",
-      "a60bf8e9ebc4646f40747032586f0aede7738ed1bf2f6b470b753ed97c76adf1",
-      "f7167c22bc1a5c52f13a362ebddb6e7b8b0a272bdf65c6e505f3d28c59d4eba5",
-      "f7167c22bc1a5c52f13a362ebddb6e7b8b0a272bdf65c6e505f3d28c59d4eba5",
-      "1ccc237e0b828bc7c6c2c7537efaf883033772d8ab0be7045fa865a06bf7f07d",
-      "bbee2b5c7b8e7b8c4a1d40d0d2fe1437620a358c872ac37971547c323c9f899a"
+      "9df673be20dc3dbb69a8280dca205d82f20405b30bf7e6ea72678ec8c250de97",
+      "2046ca6418f30532ad9a99b9d94f506d6592392348af560b1fc40965e3429d6e",
+      "8597fb2434800a9906128ed98f89cd326335b633e7a49abf9075297c0695f295",
+      "8bf509cb97ba9211b36b0f8a9ced2ed560dbff709d5d4f52604b9499400abc27",
+      "fb4150f7929a49c47c3e94c3ec9029ff441533d85a9a88c638c84759fffee60e",
+      "585f378ca1d0d2fa5caf7e5fb68ef264f5f8f5f0819633ca7816af7218649385",
+      "23656de2125dbb8e41f8d267e709375b45ea5b519d89e367f391bfcc8f776d08",
+      "851e33a7cfedf4dd6853c48fc995f8221683551931ff3693a7c8075254621c8e",
+      "8f2aafe1402c61da4e898b9cda6bee5d52b14523c15fc163dc717b38b33831de",
+      "07a002eec1ea14ace32a6f7012d0a1dcc14fd18453b58d40a1ef7486be567bf3",
+      "53d51fc32e0ae3e57af863dcfa391ab735f8d9898c778391eafc18b1875e1f3b",
+      "436d771c99543ee23f7279d1378077ababa0e977ce3ac78dfa184f0afc5750ce",
+      "4122d6d641eb8d014b6fc2ee320b372eeafa74c78bfa7a4c1dd63b1193b451d8",
+      "699f33f7737c8125941b5f25db18089360c2b6a889c21e8ed4c0a061e2e898cd",
+      "63ce410afbf13df6a8b3ed6e41dee2fde65f28fcb09f55d1e8fa92f382e279bd",
+      "7f47faa29c548a07d309d21cf5ad07d93a3ceba8b5f37e6ca2bce29f975b9a06",
+      "dbaa556862d6305f6a11a8fffc3bd3403712b0f0d0864e612e1421c292e65823",
+      "aa71f9b590bd4156a493c60353a74642b6807c04914d3217e72d41fb06b2dfd5",
+      "a9de1cd434c2d957934294d443e6106a7944663b3fb5065214ed2b451a267a56",
+      "393a279bb6f615c78451bf9ad904c0dab7ee144c601aba93fbe21190e232fd8c",
+      "352683312175879fe50933e236bae6b11dc4aa05c168992b06a78a42eb182e68",
+      "c5383fbd9d9cc1802985e7ac1ee4c99a291613c0a27729a35b8989d9c62aef4a",
+      "8d50bb46f6ef4a0786e600aa2be615b4d68b631bf251fc13705d51855ed536e6",
+      "100303f6f13af421b7dc198a4bcc1f41271cde82ced6e274919c6a22b908c5d3",
+      "d5419e03ec12f8252b23f74f59dc45a8d997058d96982339b704f86a960a61fd",
+      "a1267165d1a554825181f8ac87033d16683110fe97ab7cd58fc830142899e02d",
+      "a1267165d1a554825181f8ac87033d16683110fe97ab7cd58fc830142899e02d",
+      "ed3cc39ce3a8f9481f32f417f718149d1b6e3eb1a83ae0993d10bb19fd31f394",
+      "706a9102a44e1c82c5a610654046977db56b6e1d9b386f7124f31e5cadf7a8d7",
+      "30f23c22bbd8e68207d77f3a38c6726cad0e9d1a426bfd1128bd70a44d9d7f1c",
+      "384388906a3001ab2740296f391068302b2433499c6e146082867faecd64adf0"
     ],
     "stale": false,
     "warnings": [
@@ -1084,8 +980,8 @@
       "ambiguous schedule identity remains for over-cap pending rows; retained rows stay official source records with schedule_identity=inferred and this assumption is audited"
     ],
     "official_record_count": 740,
-    "estimated_record_count": 176,
-    "inferred_schedule_record_count": 30,
+    "estimated_record_count": 150,
+    "inferred_schedule_record_count": 25,
     "estimated_schedule_method": null
   }
 }
